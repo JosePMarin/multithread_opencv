@@ -10,8 +10,8 @@ std::mutex global_mutex;
 // Press  ESC on keyboard to exit
 
 std::chrono::_V2::system_clock::time_point check_time(std::chrono::_V2::system_clock::time_point *start=nullptr,
-													std::chrono::_V2::system_clock::time_point *end=nullptr,
-													const char *process=nullptr
+							std::chrono::_V2::system_clock::time_point *end=nullptr,
+							const char *process=nullptr
 )
 {
 	std::chrono::_V2::system_clock::time_point time;
