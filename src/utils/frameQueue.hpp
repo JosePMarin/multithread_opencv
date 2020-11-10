@@ -5,12 +5,14 @@
 template<typename T>
 class FrameQueue
 {
+
 public:
 	FrameQueue() = default;
 	FrameQueue(const FrameQueue<T>&) = delete;
 	virtual ~FrameQueue() { clear(); }
 
 public:
+
 	// Returns and maintains item at front of Queue
 	const T& front()
 	{

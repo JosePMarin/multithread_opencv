@@ -11,6 +11,9 @@
 #include <chrono>
 #include <cstdint>
 #include <condition_variable>
+#include <functional>
 #include <experimental/filesystem>
 
 #include "opencv2/opencv.hpp"
+
+#include "frameQueue.hpp"

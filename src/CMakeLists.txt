@@ -1,16 +1,17 @@
-
-
 add_executable( videoflow 
-    main.cpp
+    main2.cpp
 )
 
-target_include_directories( videoflow
-    PUBLIC
-    ${OpenCV_INCLUDE_DIRS}
-)
+# target_include_directories( videoflow
+#     PRIVATE
+#     ${CMAKE_CURRENT_SOURCE_DIR}/video_c
+# )
 
 target_link_libraries( videoflow
     PRIVATE
-    ${OpenCV_LIBS}
-    stdc++fs
+    libvideo_base
+    libprocess
 )
+
+add_subdirectory(utils)
+add_subdirectory(video_c)

@@ -1,4 +1,4 @@
-#include "videoflow.hpp"
+#include "video_c/video_base/video_base.hpp"
 
 std::thread load_thread;
 std::thread process_thread;
@@ -140,14 +140,12 @@ int main(){
 	FrameQueue<cv::Mat> out_buffer;
 	cv::Mat frame;
 	
-	int i;
-
 
 	cap.setExceptionMode(true);
 	try
 	{
-		cap.open(current_path.string() + "/videos/test.mp4");
-		i = cap.get(cv::CAP_PROP_FRAME_COUNT );
+		cap.open(current_path.string() + "/src/video_c/videos/test.mp4");
+		int i = cap.get(cv::CAP_PROP_FRAME_COUNT );
 		std::cout<< "Total frames "<< i << std::endl;
 	}
 	catch(const std::exception& e)
@@ -160,11 +158,11 @@ int main(){
 		std::cout << "Error opening video stream or file" << std::endl;
 		return -1;
 	}
-	load_frames(cap, load_buffer);
-	preProcFrame(load_buffer, out_buffer);
+	//load_frames(cap, load_buffer);
+	//preProcFrame(load_buffer, out_buffer);
 
-	//load_thread = std::thread(load_frames, std::ref(cap), std::ref(load_buffer));
-	//process_thread = std::thread(preProcFrame, std::ref(load_buffer), std::ref(out_buffer));
+	load_thread = std::thread(load_frames, std::ref(cap), std::ref(load_buffer));
+	process_thread = std::thread(preProcFrame, std::ref(load_buffer), std::ref(out_buffer));
 
 	display(out_buffer);
 	destroy_stream();
