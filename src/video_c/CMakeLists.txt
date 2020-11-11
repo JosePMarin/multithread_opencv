@@ -1,22 +1,22 @@
 
 # Declare the libraries
-add_library(libprocess STATIC
-        grey_scale.cpp
+add_executable(slam
+        slam.cpp
 )
 
 #link the libraries in depencendy of this one
-target_link_libraries(libprocess
+target_link_libraries(slam
     PUBLIC
     libutils
-    libvideo_base
-    ${OpenCV_LIBS}
+    libvideo_interface
 )
 
 # Specify the include directories exported by the libraries
-target_include_directories(libprocess 
+target_include_directories(slam 
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 
-add_subdirectory(video_base)
+add_subdirectory(video_interface)
+

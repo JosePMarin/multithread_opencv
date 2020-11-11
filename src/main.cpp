@@ -1,4 +1,4 @@
-#include "video_c/video_base/video_base.hpp"
+#include "utils/common.hpp"
 
 std::thread load_thread;
 std::thread process_thread;

@@ -21,8 +21,6 @@ void video_base::init(T arg)
     }
     int i = cap.get(cv::CAP_PROP_FRAME_COUNT );
     std::cout<< "Total frames "<< i << std::endl;
-    load_buffer = std::make_shared<FrameQueue<cv::Mat>>();
-    proc_launcher(&video_base::load_frames, load_buffer);
 }
 
 bool video_base::check_exit()
@@ -35,36 +33,9 @@ bool video_base::check_exit()
     return closing_controller;
 }
 
-void video_base::load_frames (std::shared_ptr<FrameQueue<cv::Mat>> buffer)
-{
-    cv::Mat frame;
-    while(cap.isOpened())
-    {
-        std::scoped_lock lock(base_mutex);
-        // Capture frame-by-frame
-        try
-        {
-            cap.read(frame);
-            // If the frame is empty, break immediately
-            // otherwise load into buffer and notify
-            if (!frame.empty())
-            {
-                (*buffer).push_back(std::move(frame));
-            } else {
-                break;
-            }
-        }
-        catch(const cv::Exception& e)
-        {
-            std::cerr << e.what() << '\n';
-            break;
-        }
-    }
-}
-
 // ############## PROTECTED METHODS ###########
 
-video_base::video_base(int device=0) : m_device(device)
+video_base::video_base(int device) : m_device(device)
 {
     init(m_device);
 }
@@ -75,8 +46,11 @@ video_base::video_base(std::string &filename)
     m_path = m_pwd.string() + "/src/video_c/videos/" + filename;
     std::cout << m_path << std::endl;
     init(m_path);
-    
-    
+}
+
+std::shared_ptr<FrameQueue<cv::Mat>> get_buffer()
+{
+    return std::make_shared<FrameQueue<cv::Mat>>();
 }
 
 void video_base::destroy_stream()
@@ -88,16 +62,10 @@ void video_base::destroy_stream()
     // Closes all the frames
     cv::destroyAllWindows();
     // Stop threads
-    for (auto& thread : m_threads)
+    for (auto& thread : threads)
     {
         if (thread.joinable()) thread.join();
     }
-}
-
-template <typename T>
-void video_base::proc_launcher(T proc, std::shared_ptr<FrameQueue<cv::Mat>> buffer)
-{
-    m_threads.push_back(std::thread(proc, this, buffer));  
 }
 
 // ############## PUBLIC METHODS ###########
@@ -108,9 +76,9 @@ void video_base::display()
     {
         std::scoped_lock lock(base_mutex);
         // Display the resulting frame
-        if (!(*out_buffer).empty())
+        if (!(*display_buffer).empty())
         {
-            cv::imshow( "Frame", (*out_buffer).pop_front());
+            cv::imshow( "Frame", (*display_buffer).pop_front());
         } 
         if (check_exit())
             break;

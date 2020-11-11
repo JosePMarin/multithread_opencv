@@ -1,19 +1,18 @@
   
 # Declare the libraries
-add_library(libvideo_base SHARED
+add_library(libvideo_interface SHARED
         video_base.cpp
+        process_frame.cpp
 )
 
 #link the libraries in depencendy of this one
-target_link_libraries(libvideo_base
+target_link_libraries(libvideo_interface
     PUBLIC
     libutils
-    stdc++fs
-    ${OpenCV_LIBS}
 )
 
 # Specify the include directories exported by the libraries
-target_include_directories(libvideo_base 
-    PRIVATE
+target_include_directories(libvideo_interface 
+    PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
 )

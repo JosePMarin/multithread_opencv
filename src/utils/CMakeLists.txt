@@ -6,6 +6,7 @@ add_library(libutils
 #link the libraries in depencendy of this one
 target_link_libraries(libutils
     INTERFACE
+    stdc++fs
     ${OpenCV_LIBS}
 )
 
