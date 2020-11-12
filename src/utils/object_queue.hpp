@@ -3,13 +3,13 @@
 #include "common.hpp"
 
 template<typename T>
-class FrameQueue
+class object_queue
 {
 
 public:
-	FrameQueue() = default;
-	FrameQueue(const FrameQueue<T>&) = delete;
-	virtual ~FrameQueue() { clear(); }
+	object_queue() = default;
+	object_queue(const object_queue<T>&) = delete;
+	virtual ~object_queue() { clear(); }
 
 public:
 

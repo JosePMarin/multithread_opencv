@@ -57,7 +57,7 @@ bool check_exit()
 	return closing_controller;
 }
 
-void load_frames(cv::VideoCapture &cap, FrameQueue<cv::Mat> &load_buffer)
+void load_frames(cv::VideoCapture &cap, object_queue<cv::Mat> &load_buffer)
 {
 	auto before = check_time();
 	cv::Mat frame;
@@ -87,7 +87,7 @@ void load_frames(cv::VideoCapture &cap, FrameQueue<cv::Mat> &load_buffer)
 	check_time(&before, &after, "load_frames");
 }
 
-void preProcFrame(FrameQueue<cv::Mat> &load_buffer, FrameQueue<cv::Mat> &out_buffer)    
+void preProcFrame(object_queue<cv::Mat> &load_buffer, object_queue<cv::Mat> &out_buffer)    
 {   
 	auto before = check_time();
 	while (!closing_controller)
@@ -109,7 +109,7 @@ void preProcFrame(FrameQueue<cv::Mat> &load_buffer, FrameQueue<cv::Mat> &out_buf
 	check_time(&before, &after, "process_frame");
 }
 
-void display(FrameQueue<cv::Mat> &out_buffer)
+void display(object_queue<cv::Mat> &out_buffer)
 {
 	auto before = check_time();	
 	while (!closing_controller)
@@ -136,8 +136,8 @@ int main(){
 	// If the input is the web camera, pass 0 instead of the video file name
 	std::experimental::filesystem::path current_path = std::experimental::filesystem::current_path();
 	
-	FrameQueue<cv::Mat> load_buffer;
-	FrameQueue<cv::Mat> out_buffer;
+	object_queue<cv::Mat> load_buffer;
+	object_queue<cv::Mat> out_buffer;
 	cv::Mat frame;
 	
 

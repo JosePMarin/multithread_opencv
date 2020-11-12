@@ -7,8 +7,7 @@ add_executable(slam
 #link the libraries in depencendy of this one
 target_link_libraries(slam
     PUBLIC
-    libutils
-    libvideo_interface
+    videoflow
 )
 
 # Specify the include directories exported by the libraries

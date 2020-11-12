@@ -1,11 +1,11 @@
-#include "video_interface/process_frame.hpp"
+#include "video_interface/videoflow.hpp"
 
 
 class slam
 {
 private:
     
-	std::shared_ptr<FrameQueue<cv::Mat>>  out_buffer;
+	std::shared_ptr<object_queue<cv::Mat>>  out_buffer;
     int m_device;
     std::string m_filename;
     videoflow *video;
@@ -34,10 +34,10 @@ slam::slam(std::string &filename) : m_filename(filename)
 
 void slam::process()
 {
-    std::shared_ptr<FrameQueue<cv::Mat>> load_buffer = video->get_buffer();
-    std::shared_ptr<FrameQueue<cv::Mat>> grey_buffer = video->get_buffer();
-    std::shared_ptr<FrameQueue<cv::Mat>> blurr_buffer = video->get_buffer();
-    std::shared_ptr<FrameQueue<cv::Mat>> canny_buffer = video->get_buffer();
+    std::shared_ptr<object_queue<cv::Mat>> load_buffer = video->get_buffer();
+    std::shared_ptr<object_queue<cv::Mat>> grey_buffer = video->get_buffer();
+    std::shared_ptr<object_queue<cv::Mat>> blurr_buffer = video->get_buffer();
+    std::shared_ptr<object_queue<cv::Mat>> canny_buffer = video->get_buffer();
     video->proc_launcher(video->p_load_frames, load_buffer, nullptr);   // load frames into buffer
     video->proc_launcher(video->p_grey_scale, grey_buffer, load_buffer);    // grey_scale frames
     video->proc_launcher(video->p_blurr_frames, blurr_buffer, grey_buffer);    // blurr frames
