@@ -15,6 +15,10 @@ private:
     {
         video = new videoflow(arg);
     }
+
+    void orb();
+
+    cv::Mat intrinsic_matrix(double focus, int high, int width);
 public:
     slam(int device);
     slam(std::string &filename);
@@ -45,6 +49,28 @@ void slam::process()
     video->display(canny_buffer);   // display frames
     std::cout<<"endprocess"<<std::endl;   
 }
+
+cv::Mat slam::intrinsic_matrix(double focus, int high, int width)
+{
+    uchar mydata[]={1, 2, 1, 1, 2, 1, 1, 2, 1};
+    cv::Mat mymat(3,3,CV_8UC1,mydata);
+
+    /*
+    1 2 1
+    1 2 1
+    1 2 1
+    */
+}
+
+void slam::orb()
+{
+    // init ORB that is going to detect corners (keypoints)
+    auto orb = cv::ORB::create();
+
+    // Brute-Force matcher: matches between descriptors(vectors) of keypoints from each feature, using hamming distance
+    auto bf = cv::BFMatcher::create(cv::NORM_HAMMING);
+}
+
 
 int main()
 {

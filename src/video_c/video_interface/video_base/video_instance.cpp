@@ -25,12 +25,14 @@ video_instance* video_instance::get_instance(std::string &filename)
 
 video_instance::video_instance(int device) : m_device{device}
 {
-    base_ptr = new video_base(m_device);
+    m_base_ptr = new video_base(m_device);
+    capture_ptr = m_base_ptr->get_capture();
 }
 
 video_instance::video_instance(std::string &filename) : m_filename{filename} 
 {
-    base_ptr = new video_base(m_filename);
+    m_base_ptr = new video_base(m_filename);
+    capture_ptr = m_base_ptr->get_capture();
 }
 
 video_instance::~video_instance(){}

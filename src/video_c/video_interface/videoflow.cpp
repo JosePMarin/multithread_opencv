@@ -17,14 +17,14 @@ void videoflow::destroy_frames ()
     }            
 }
 
-void videoflow::init_methods(process_base *base)
+void videoflow::init_methods(video_instance *p_video_instance)
 {
-    m_capture_ptr = base->capture_ptr;
-    p_grey_scale = new grey_scale(base);
-    p_load_frames = new load_frames(base);
-    p_blurr_frames = new blurr(base);
-    p_canny_frames = new canny(base);
-    p_display_frames = new display_frames(base);
+    m_capture_ptr = p_video_instance->capture_ptr;
+    p_grey_scale = new grey_scale(p_video_instance);
+    p_load_frames = new load_frames(p_video_instance);
+    p_blurr_frames = new blurr(p_video_instance);
+    p_canny_frames = new canny(p_video_instance);
+    p_display_frames = new display_frames(p_video_instance);
 }
 
 void videoflow::destroy_stream()
@@ -34,14 +34,14 @@ void videoflow::destroy_stream()
 
 videoflow::videoflow(std::string &filename) : m_filename{filename} 
 {
-    p_process_base = new process_base(m_filename);
-    init_methods(p_process_base);        
+    p_video_instance = video_instance::get_instance(m_filename);
+    init_methods(p_video_instance);        
 }
 
 videoflow::videoflow(int &device) : m_device{device} 
 {
-    p_process_base = new process_base(m_device);
-    init_methods(p_process_base);
+    p_video_instance = video_instance::get_instance(m_device);
+    init_methods(p_video_instance);    
 }
 
 void videoflow::proc_launcher(process_interface *proc_ptr,

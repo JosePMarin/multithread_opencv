@@ -1,5 +1,5 @@
 #pragma once
-#include "process_frame/process_base.hpp"
+#include "video_instance.hpp"
 #include "process_frame/blurr.hpp"
 #include "process_frame/canny.hpp"
 #include "process_frame/display.hpp"
@@ -7,6 +7,11 @@
 #include "process_frame/load_frames.hpp"
 
 class videoflow
+/**
+ * Front library of the framework that provides a toolset for image processing.
+ * it has instance of all the processes and a thread launcher for them to be 
+ * in a multithread mode.
+*/
 {
     private:
 
@@ -15,8 +20,10 @@ class videoflow
         cv::VideoCapture *m_capture_ptr;
         std::vector<std::thread> m_threads;
         std::mutex m_mutex;
-        public:
-        process_base *p_process_base;
+
+    public:
+    
+        video_instance *p_video_instance;
         process_interface *p_grey_scale;
         process_interface *p_load_frames;
         process_interface *p_blurr_frames;
@@ -27,7 +34,7 @@ class videoflow
 
         void destroy_frames ();
 
-        void init_methods(process_base *base);
+        void init_methods(video_instance *p_video_instance);
 
         void destroy_stream();
 

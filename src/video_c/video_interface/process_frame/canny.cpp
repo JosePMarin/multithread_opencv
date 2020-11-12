@@ -17,9 +17,9 @@ void canny::proc_init(std::shared_ptr<object_queue<cv::Mat>> buffer_out,
     }
 }
 
-canny::canny(process_base *base_ptr)
+canny::canny(video_instance *p_video_instance)
         {
-            m_capture_ptr = base_ptr->capture_ptr;
+            m_capture_ptr = p_video_instance->capture_ptr;
         }
 
 void canny::do_process(std::shared_ptr<object_queue<cv::Mat>> buffer_out,

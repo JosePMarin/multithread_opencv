@@ -17,9 +17,9 @@ void blurr::proc_init(std::shared_ptr<object_queue<cv::Mat>> buffer_out,
     }
 }
 
-blurr::blurr(process_base *base_ptr)
+blurr::blurr (video_instance *p_video_instance)
 {
-    m_capture_ptr = base_ptr->capture_ptr;
+    m_capture_ptr = p_video_instance->capture_ptr;
 }
 
 void blurr::do_process(std::shared_ptr<object_queue<cv::Mat>> buffer_out,

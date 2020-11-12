@@ -26,9 +26,9 @@ bool display_frames::check_exit()
     return closing_controller;
 }
 
-display_frames::display_frames(process_base *base_ptr)
+display_frames::display_frames(video_instance *p_video_instance)
 {
-    m_capture_ptr = base_ptr->capture_ptr;
+    m_capture_ptr = p_video_instance->capture_ptr;
 }
 
 void display_frames::do_process(std::shared_ptr<object_queue<cv::Mat>> buffer_out,

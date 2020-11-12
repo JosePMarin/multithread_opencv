@@ -1,11 +1,10 @@
 #pragma once
-#include "process_base.hpp"
+#include "video_instance.hpp"
 
 class process_interface
+/** Interface base for all the processes to apply the do_process method
+ *  **/
 {
-public:
-    std::vector<std::thread> threads;
-
 public:
     virtual ~process_interface() {}
 

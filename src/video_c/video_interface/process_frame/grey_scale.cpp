@@ -17,9 +17,9 @@ void grey_scale::proc_init(std::shared_ptr<object_queue<cv::Mat>> buffer_out,
     }
 }
 
-grey_scale::grey_scale(process_base *base_ptr)
+grey_scale::grey_scale(video_instance *p_video_instance)
 {
-    m_capture_ptr = base_ptr->capture_ptr;
+    m_capture_ptr = p_video_instance->capture_ptr;
 }
 
 void grey_scale::do_process(std::shared_ptr<object_queue<cv::Mat>> buffer_out,

@@ -2,6 +2,7 @@
 
 #include "common.hpp"
 
+// wrap to std::deque in order to work better in a multithread paradigm
 template<typename T>
 class object_queue
 {

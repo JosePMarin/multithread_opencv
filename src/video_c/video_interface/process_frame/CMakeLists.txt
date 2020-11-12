@@ -6,7 +6,6 @@ add_library(libprocess STATIC
         display.cpp
         grey_scale.cpp
         load_frames.cpp
-        process_base.cpp
 )
 
 #link the libraries in depencendy of this one

@@ -29,7 +29,7 @@ void load_frames::proc_init (std::shared_ptr<object_queue<cv::Mat>> buffer_out,
 }
 
     
-load_frames::load_frames(process_base *base_ptr)
+load_frames::load_frames(video_instance *base_ptr)
 {
     m_capture_ptr = base_ptr->capture_ptr;
 }

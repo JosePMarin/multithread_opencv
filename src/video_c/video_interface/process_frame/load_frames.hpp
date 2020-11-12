@@ -2,6 +2,9 @@
 #include "process_interface.hpp"
 
 class load_frames : public process_interface
+/** object that loads frames from capturevideo instance to buffer_out
+ * buffer_in = MUST BE nullptr
+ * **/
 {
     private:
         cv::VideoCapture *m_capture_ptr;
@@ -11,7 +14,7 @@ class load_frames : public process_interface
                         std::shared_ptr<object_queue<cv::Mat>> buffer_in);
 
     public:
-        load_frames(process_base *base_ptr);
+        load_frames(video_instance *p_video_instance);
 
         void do_process(std::shared_ptr<object_queue<cv::Mat>> buffer_out,
                         std::shared_ptr<object_queue<cv::Mat>> buffer_in);
