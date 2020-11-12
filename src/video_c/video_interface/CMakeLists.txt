@@ -2,7 +2,6 @@
 # Declare the libraries
 add_library(libvideo_interface SHARED
         video_base.cpp
-        process_frame.cpp
 )
 
 #link the libraries in depencendy of this one
